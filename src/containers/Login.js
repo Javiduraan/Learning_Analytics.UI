@@ -3,10 +3,12 @@ import Form from "react-bootstrap/Form";
 import  Button from "react-bootstrap/Button";
 import axios from "axios";
 import "./Login.css";
+import { useAppContext } from "../Lib/ContextLib";
 
 export default function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const { userHasAuthenticated } = useAppContext();
 
     function validateForm() {
         //tomar el username = email y el pwd 
@@ -21,7 +23,7 @@ export default function Login() {
         .then((res) => {
             if (res.status === 200) {
                 console.log('Usuario valido');
-                return true;
+                userHasAuthenticated(true);
             }
         })
         .catch((err) => {
