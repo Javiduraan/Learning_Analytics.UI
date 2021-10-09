@@ -1,21 +1,24 @@
 import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
-import  Button from "react-bootstrap/Button";
+import LoaderButton from "../components/LoaderButton";
 import axios from "axios";
 import "./Login.css";
 import { useAppContext } from "../Lib/ContextLib";
+import {useHistory} from "react-router-dom";
+import { onError } from "../Lib/errorLib";
 
 export default function Login() {
+    const history = useHistory();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const { userHasAuthenticated } = useAppContext();
+    const [isLoading, setIsLoading] = useState(false);
 
     function validateForm() {
-        //tomar el username = email y el pwd 
-        //hacer un get.
-        //si nos devuelve un json con los datos del usuario
-        //entonces es un usuario valido
-        //si no, mostrar mensaje de error.
+        return email.length > 0 && password.length > 0;
+    }
+
+    function sendRequest() {
         axios.post('https://localhost:5001/api/User/Auth', {
             username: email,
             password: password
@@ -24,17 +27,26 @@ export default function Login() {
             if (res.status === 200) {
                 console.log('Usuario valido');
                 userHasAuthenticated(true);
+                history.push("/");
             }
         })
         .catch((err) => {
             console.log('usuario no valido');
             console.log(err);
+            setIsLoading(false);
         })
-        // return email.length > 0 && password.length > 0;
     }
 
     function handleSubmit(event) {
         event.preventDefault();
+
+        setIsLoading(true);
+
+        try {
+            sendRequest();
+        } catch (e) {
+            onError(e);
+        }
     }
 
     return (
@@ -58,9 +70,15 @@ export default function Login() {
                       onChange={(e) => setPassword(e.target.value)}
                       />
                 </Form.Group>
-                <Button block size="lg" type="submit" onClick={validateForm}>
-                  Login
-                </Button>
+                <LoaderButton
+                    block
+                    size="lg"
+                    type="submit"
+                    isLoading={isLoading}
+                    disabled={!validateForm()}
+                >
+                Login
+                </LoaderButton>
             </Form>
         </div>
     );
