@@ -13,7 +13,8 @@ function App() {
   const history = useHistory();
   const [isAuthenticated, userHasAuthenticated] = useState(false);
   // const [isAuthenticating, setIsAuthenticating] = useState(true);
-
+  console.log(isAuthenticated);
+  
   function handleLogout() {
     userHasAuthenticated(false);
     history.push("/login");
@@ -32,12 +33,24 @@ function App() {
           <Nav activeKey={window.location.pathname}>
           {isAuthenticated ? (
             <>
-            <NavDropdown title="Models" id="basic-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Simple Regresion</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">Multiple Regresion</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Clustering</NavDropdown.Item>
+            <NavDropdown title="Models" id="basic-nav-dropdown">              
+              <NavDropdown.Item>
+                <LinkContainer to="/simplereg">
+                  <span>Simple Regresion</span> 
+                </LinkContainer>
+              </NavDropdown.Item>
+              <NavDropdown.Item>
+                <LinkContainer to="/multiplereg">
+                  <span>Multiple Regresion</span>
+                </LinkContainer>
+                </NavDropdown.Item>
+              <NavDropdown.Item>
+              <LinkContainer to="/clustering">
+                  <span>Clustering</span>
+                </LinkContainer>
+              </NavDropdown.Item>
             </NavDropdown>
-              <LinkContainer to="">
+              <LinkContainer to="/help">
                 <Nav.Link>Help Resources</Nav.Link>
               </LinkContainer>
               <LinkContainer to="">

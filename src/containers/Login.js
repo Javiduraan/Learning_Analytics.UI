@@ -25,13 +25,13 @@ export default function Login() {
         })
         .then((res) => {
             if (res.status === 200) {
-                console.log('Usuario valido');
+                // console.log('Usuario valido');
                 userHasAuthenticated(true);
                 history.push("/");
             }
         })
         .catch((err) => {
-            console.log('usuario no valido');
+            // console.log('usuario no valido');
             console.log(err);
             setIsLoading(false);
         })
