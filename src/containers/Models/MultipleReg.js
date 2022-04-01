@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import {Form, Button, Row, Col, Tabs, Tab} from "react-bootstrap";
+import axios from "axios";
 
 
 export default function MultipleReg(){
@@ -13,29 +14,62 @@ export default function MultipleReg(){
     
     const [secondModelValues, secondModelSetValues] = useState({
         motherEducation2: "",
-        studentAssists2: 0,
+        absences: 0,
         studentFreeTime2: 0
     });
 
     const [thirdModelValues, thirdModelSetValues] = useState({
         studentStudyTime3: 0,
-        studentAssists3: 0,
+        absences: 0,
         rejectedGrades3: 0
     });
     
     function handleSubmitFirstModel(evt) {
         evt.preventDefault();
         //Llamada a Endpoint del primer modelo aqui
+        axios.post("https://localhost:5001/api/User/FirstModelSubmit", {
+            motherEducation: firstModelValues.motherEducation,
+            fatherEducation: firstModelValues.fatherEducation,
+            studentAge: firstModelValues.studentAge
+        }).then((res) => {
+            if (res.status === 200) {
+                console.log(res);
+            }
+        }).catch((err) => {
+            console.log("Error en handleSubmitFirstModel" + err);
+        });
     }
 
     function handleSubmitSecondModel(evt) {
         evt.preventDefault();
         //Llamada a Endpoint del segundo modelo aqui
+        axios.post("https://localhost:5001/api/User/SecondModelSubmit", {
+            motherEducation2: secondModelValues.motherEducation2,
+            studentAssists2: secondModelValues.absences,
+            studentFreeTime2: secondModelValues.studentFreeTime2
+        }).then((res) => {
+            if (res.status === 200) {
+                console.log(res);
+            }
+        }).catch((err) => {
+            console.log("Error en handleSubmitSecondModel" + err);
+        });
     }
 
     function handleSubmitThirdModel(evt) {
         evt.preventDefault();
         //Llamada a Endpoint del tercer modelo aqui
+        axios.post("https://localhost:5001/api/User/ThirdModelSubmit", {
+            studentStudyTime3: thirdModelValues.studentStudyTime3,
+            studentAssists3: thirdModelValues.absences,
+            rejectedGrades3: thirdModelValues.rejectedGrades3
+        }).then((res) => {
+            if (res.status === 200) {
+                console.log(res);
+            }
+        }).catch((err) => {
+            console.log("Error en handleSubmitThirdModel" + err);
+        });
     }
     
     function handleChangeFirstModel(evt) {
@@ -56,7 +90,7 @@ export default function MultipleReg(){
         const { name, value } = target;
 
         const newValues = {
-          ...firstModelValues,
+          ...secondModelValues,
           [name]: value,
         };
         
@@ -69,12 +103,12 @@ export default function MultipleReg(){
         const { name, value } = target;
 
         const newValues = {
-          ...firstModelValues,
+          ...thirdModelValues,
           [name]: value,
         };
         
 
-        secondModelSetValues(newValues);
+        thirdModelSetValues(newValues);
     }
 
 
@@ -129,10 +163,10 @@ export default function MultipleReg(){
                 </Form.Control>
                 </Col>
                 <br/>
+            </Form.Group>
                 <Button variant="primary" type="submit">
                     Enviar
                 </Button>
-            </Form.Group>
                 <div className="container">
                     <hr/>
                     <h1>Resultado obtenido: </h1>
