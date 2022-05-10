@@ -7,3 +7,23 @@
     font-family: "Open Sans", sans-serif;
     font-weight: 600;
   }
+  
+  td {
+    align-content : "left";
+  }
+
+  div.scroll_vertical {
+    height: 114px;
+    width: 114px;
+    overflow: auto;
+    border: 1px solid #666;
+    background-color: #ccc;
+    padding: 8px;
+  }
+  div.scroll_horizontal {
+    width: 400px;
+    overflow: auto;
+    border: 1px solid #666;
+    background-color: #ccc;
+    padding: 8px;
+  }

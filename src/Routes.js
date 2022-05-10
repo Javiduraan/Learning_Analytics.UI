@@ -8,7 +8,8 @@ import Clustering from "./containers/Models/Clustering";
 import MultipleReg from "./containers/Models/MultipleReg";
 import SimpleReg from "./containers/Models/SimpleReg";
 import HelpResources from "./containers/HelpResources";
-
+import BasicEstadistic from "./containers/Models/BasicEstadistic";
+import NeuronalNetworks from "./containers/Models/NeuronalNetworks";
 export default function Routes() {
   return (
     <Switch>
@@ -32,6 +33,12 @@ export default function Routes() {
       </Route>
       <Route exact path="/help">
         <HelpResources/>
+      </Route>
+      <Route exact path="/basicestadistic">
+        <BasicEstadistic/>
+      </Route>
+      <Route exact path="/redesneuro">
+        <NeuronalNetworks/>
       </Route>
       <Route>
         <NotFound />

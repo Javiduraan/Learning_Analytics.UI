@@ -25,7 +25,11 @@ function App() {
       <Navbar collapseOnSelect bg="light" expand="md" className="mb-3">
         <LinkContainer to="/">
           <Navbar.Brand className="font-weight-bold text-muted">
-            Scratch
+          <img width="50px"
+                        className="d-block w-20px"
+                        src="/images/logo_tec_barra.png"
+                        alt=""
+          />
           </Navbar.Brand>
         </LinkContainer>
         <Navbar.Toggle />
@@ -33,29 +37,38 @@ function App() {
           <Nav activeKey={window.location.pathname}>
           {isAuthenticated ? (
             <>
-            <NavDropdown title="Models" id="basic-nav-dropdown">              
+           
+            <NavDropdown title="Modelos" id="basic-nav-dropdown">              
+            <NavDropdown.Item>
+                <LinkContainer to="/basicestadistic">
+                  <span>Estadisticas Basicas</span> 
+                </LinkContainer>
+              </NavDropdown.Item>
               <NavDropdown.Item>
                 <LinkContainer to="/simplereg">
-                  <span>Simple Regresion</span> 
+                  <span>Regresión Simple</span> 
                 </LinkContainer>
               </NavDropdown.Item>
               <NavDropdown.Item>
                 <LinkContainer to="/multiplereg">
-                  <span>Multiple Regresion</span>
+                  <span>Regresión Múltiple</span>
                 </LinkContainer>
                 </NavDropdown.Item>
               <NavDropdown.Item>
               <LinkContainer to="/clustering">
-                  <span>Clustering</span>
+                  <span>Clustering (Agrupamientos)</span>
+                </LinkContainer>
+              </NavDropdown.Item>
+              <NavDropdown.Item>
+              <LinkContainer to="/redesneuro">
+                  <span>Redes Neuronales (Para Predicción)</span>
                 </LinkContainer>
               </NavDropdown.Item>
             </NavDropdown>
               <LinkContainer to="/help">
-                <Nav.Link>Help Resources</Nav.Link>
+                <Nav.Link>Recursos de ayuda</Nav.Link>
               </LinkContainer>
-              <LinkContainer to="">
-                <Nav.Link>Student Advance</Nav.Link>
-              </LinkContainer>
+              
               <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
             </>
             ) : (
